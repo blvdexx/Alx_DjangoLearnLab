@@ -1,12 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base_generic.html' %}
+
 {% block content %}
-  <h1>Search Results for "{{ query }}"</h1>
-  {% for post in posts %}
-    <div>
-      <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-      <p>{{ post.content|truncatewords:30 }}</p>
-    </div>
-  {% empty %}
-    <p>No posts found.</p>
-  {% endfor %}
+  <h2>Search Results for "{{ query }}"</h2>
+  {% if results %}
+    <ul>
+      {% for post in results %}
+        <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
 {% endblock %}
